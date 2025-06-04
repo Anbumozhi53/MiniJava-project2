@@ -1,0 +1,23 @@
+<form id="registrationForm">
+  <input type="text" id="name" placeholder="Name" required />
+  <input type="email" id="email" placeholder="Email" required />
+  <input type="text" id="contact" placeholder="Contact Number" required />
+  <textarea id="medicalHistory" placeholder="Medical History"></textarea>
+  <button type="submit">Register</button>
+</form>
+
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+  const patient = {
+    name: document.getElementById('name').value,
+    email: document.getElementById('email').value,
+    contactNumber: document.getElementById('contact').value,
+    medicalHistory: document.getElementById('medicalHistory').value
+  };
+  axios.post('http://localhost:8080/api/patients/register', patient)
+    .then(res => alert('Patient Registered!'))
+    .catch(err => alert('Error: ' + err));
+});
+</script>
