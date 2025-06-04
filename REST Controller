@@ -1,0 +1,21 @@
+@RestController
+@RequestMapping("/api/patients")
+public class PatientController {
+    
+    @Autowired
+    private PatientRepository patientRepository;
+
+    @PostMapping("/register")
+    public ResponseEntity<?> registerPatient(@RequestBody Patient patient) {
+        Patient savedPatient = patientRepository.save(patient);
+        return ResponseEntity.ok(savedPatient);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Patient> getPatient(@PathVariable Long id) {
+        return patientRepository.findById(id)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+    }
+}
+
